@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 import java.util.GregorianCalendar;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -34,10 +37,12 @@ public class TelaEstatistica {
 	private Scene cenaOperacoes;
 	private Scene cenaEstatistica;
 	private Conta conta;
-	public TelaEstatistica(Stage mainStage, Scene cenaOperacoes, Conta conta) {
+	private List<Operacao> listaOperacoes;
+	public TelaEstatistica(Stage mainStage, Scene cenaOperacoes, Conta conta,List<Operacao> listaOperacoes) {
 		this.mainStage = mainStage;
 		this.cenaOperacoes = cenaOperacoes;
 		this.conta = conta;
+		this.listaOperacoes = listaOperacoes;
 	}
 	
 	public Scene getTelaEstatistica() {
@@ -54,26 +59,60 @@ public class TelaEstatistica {
         
         String categoria = "Categoria: "+conta.getStrStatus();
         
-        //String mesSelecionado = "Mês: "+ pega o mes atual;
-        //String anoSelecionado = "Ano: "+ pega o ano atual;
         Label cat = new Label(categoria);
         grid.add(cat, 0, 1);
         
+        ChoiceBox selecaoMes = new ChoiceBox();
+        for(Operacao op: listaOperacoes) {
+        	if(op.getMes() == (Integer)selecaoMes.getValue()){
+        		String choice = null;
+        		switch(op.getMes()) {
+        		case 1:
+        			choice = "Janeiro";
+        			break;
+        		case 2:
+        			choice = "Fevereiro";
+        			break;
+        		case 3:
+        			choice = "Março";
+        			break;
+        		case 4:
+        			choice = "Abril";
+        			break;
+        		case 5:
+        			choice = "Maio";
+        			break;
+        		case 6:
+        			choice = "Junho";
+        			break;
+        		case 7:
+        			choice = "Julho";
+        			break;
+        		case 8:
+        			choice = "Agosto";
+        			break;
+        		case 9:
+        			choice = "Setembro";
+        			break;
+        		case 10:
+        			choice = "Outubro";
+        			break;
+        		case 11:
+        			choice = "Novembro";
+        			break;
+        		case 12:
+        			choice = "Dezembro";
+        			break;
+        		default:
+        			break;
+        		}
+        		selecaoMes.getItems().add(choice);
+        		
+        	}
+        	
+        }
         
-        MenuItem jan = new MenuItem("Janeiro");
-        MenuItem fev = new MenuItem("Fevereiro");
-        MenuItem marc = new MenuItem("Março");
-        
-        MenuButton selecaoMes = new MenuButton("Mês",null,jan,fev,marc);
-        
-        MenuItem ano1 = new MenuItem("insiraAno");
-        MenuItem ano2 = new MenuItem("insiraAno");
-        MenuItem ano3 = new MenuItem("insiraAno");
-        
-        MenuButton selecaoAno = new MenuButton("Ano",null,ano1,ano2,ano3);
-        
-        HBox hbox = new HBox(selecaoMes);
-        HBox hbox2 = new HBox(selecaoAno);
+        HBox hBoxMes = new HBox(selecaoMes);
         HBox hbBtn = new HBox(20);
         hbBtn.setAlignment(Pos.TOP_CENTER);
         hbBtn.getChildren().add(selecaoMes);

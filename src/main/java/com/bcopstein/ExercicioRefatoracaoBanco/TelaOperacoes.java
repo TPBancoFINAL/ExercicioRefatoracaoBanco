@@ -175,7 +175,7 @@ public class TelaOperacoes {
         	mainStage.setScene(cenaEntrada);
         });
         btnEstatistica.setOnAction(e->{
-        	TelaEstatistica te = new TelaEstatistica(mainStage,cenaOperacoes,conta);
+        	TelaEstatistica te = new TelaEstatistica(mainStage,cenaOperacoes,conta,operacoes);
         	Scene scene = te.getTelaEstatistica();
         	mainStage.setScene(scene);
         	
