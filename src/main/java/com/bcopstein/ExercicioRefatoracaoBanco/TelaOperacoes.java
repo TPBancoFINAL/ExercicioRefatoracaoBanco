@@ -52,7 +52,9 @@ public class TelaOperacoes {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
         
-        String categoria = "Categoria: "+conta.getStrStatus();
+        // implementar observer para alterar variavel na tela
+        ObservableList<String> statusConta = FXCollections.observableArrayList(conta.getStrStatus());
+        String categoria = ("Categoria: "+statusConta);
         String limRetDiaria = "Limite retirada diaria: "+conta.getLimRetiradaDiaria();
         
         Label cat = new Label(categoria);

@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.GregorianCalendar;
 import java.util.stream.Collectors;
 
@@ -61,57 +62,16 @@ public class TelaEstatistica {
         
         Label cat = new Label(categoria);
         grid.add(cat, 0, 1);
+     
+        // implementar observer para alterar variavel na tela
+        ChoiceBox selecaoMes = new ChoiceBox(FXCollections.observableArrayList("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"));
+        //ObservableList<String> escolhaMes = null;
         
-        ChoiceBox selecaoMes = new ChoiceBox();
-        for(Operacao op: listaOperacoes) {
-        	if(op.getMes() == (Integer)selecaoMes.getValue()){
-        		String choice = null;
-        		switch(op.getMes()) {
-        		case 1:
-        			choice = "Janeiro";
-        			break;
-        		case 2:
-        			choice = "Fevereiro";
-        			break;
-        		case 3:
-        			choice = "Março";
-        			break;
-        		case 4:
-        			choice = "Abril";
-        			break;
-        		case 5:
-        			choice = "Maio";
-        			break;
-        		case 6:
-        			choice = "Junho";
-        			break;
-        		case 7:
-        			choice = "Julho";
-        			break;
-        		case 8:
-        			choice = "Agosto";
-        			break;
-        		case 9:
-        			choice = "Setembro";
-        			break;
-        		case 10:
-        			choice = "Outubro";
-        			break;
-        		case 11:
-        			choice = "Novembro";
-        			break;
-        		case 12:
-        			choice = "Dezembro";
-        			break;
-        		default:
-        			break;
-        		}
-        		selecaoMes.getItems().add(choice);
-        		
-        	}
-        	
-        }
+        Label mesEstatistica = new Label("Mes corrente:  " + selecaoMes.getValue().toString());
+        grid.add(mesEstatistica, 0,2);
         
+        
+       
         HBox hBoxMes = new HBox(selecaoMes);
         HBox hbBtn = new HBox(20);
         hbBtn.setAlignment(Pos.TOP_CENTER);
