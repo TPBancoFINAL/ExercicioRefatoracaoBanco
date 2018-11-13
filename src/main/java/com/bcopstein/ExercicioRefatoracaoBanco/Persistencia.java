@@ -20,9 +20,9 @@ public class Persistencia {
     
     private Persistencia(){}
 
-    public Persistencia instanceof(){
-      if(instance == null) instance = new Persistencia;
-      return instance;
+    public static Persistencia InstanceOf(){
+    	if(instance == null) instance = new Persistencia();
+    	return instance;
     }
     public Map<Integer,Conta> loadContas(){
     	Map<Integer,Conta> contas = new HashMap<>();

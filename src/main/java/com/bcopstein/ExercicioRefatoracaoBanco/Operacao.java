@@ -16,17 +16,17 @@ public class Operacao {
     
 	public Operacao(int dia, int mes, int ano, int hora, int minuto, int segundo, int numeroConta, int statusConta,
 			double valorOperacao, int tipoOperacao) {
-		super();
-		this.dia = dia;
-		this.mes = mes;
-		this.ano = ano;
-		this.hora = hora;
-		this.minuto = minuto;
-		this.segundo = segundo;
-		this.numeroConta = numeroConta;
-		this.statusConta = statusConta;
-		this.valorOperacao = valorOperacao;
-		this.tipoOperacao = tipoOperacao;
+			super();
+			this.dia = dia;
+			this.mes = mes;
+			this.ano = ano;
+			this.hora = hora;
+			this.minuto = minuto;
+			this.segundo = segundo;
+			this.numeroConta = numeroConta;
+			this.statusConta = statusConta;
+			this.valorOperacao = valorOperacao;
+			this.tipoOperacao = tipoOperacao;
 	}
 
 	public int getDia() {
