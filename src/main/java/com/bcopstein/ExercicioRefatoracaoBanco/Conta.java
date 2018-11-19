@@ -77,7 +77,16 @@ public class Conta {
 			saldo += valor * 1.025;
 		}
 	}
-
+	/*@
+	 @requires(status == SILVER)
+	 @ensures valor <  10000;
+	 @also
+	 @requires(status == GOLD)
+	 @ensures valor <  100000;
+	 @also
+	 @requires(status == PLATINUM)
+	 @ensures valor <  500000;
+	 @*/
 	public void retirada(double valor) {
 		if (saldo - valor < 0.0) {
 			return;

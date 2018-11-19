@@ -129,6 +129,12 @@ public class TelaOperacoes {
               operacoes.add(op);        	  
         	  tfSaldo.setText(""+conta.getSaldo());
         	  operacoesConta.add(op);
+        	  //Alteracao nas contas
+        	  if(conta.getStatus() == 0) {cat.setText("Categoria: SILVER");}
+        	  if(conta.getStatus() == 1) {cat.setText("Categoria: GOLD");}
+        	  if(conta.getStatus() == 2) {cat.setText("Categoria: PLATINUM");}
+        	  
+        	  cat.setText("Categoria: "+conta.getStatus());
         	}catch(NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Valor inválido !!");
