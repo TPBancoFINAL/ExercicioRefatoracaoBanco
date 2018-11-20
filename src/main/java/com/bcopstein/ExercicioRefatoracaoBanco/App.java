@@ -21,18 +21,12 @@ import javafx.stage.Stage;
 
 
 public class App extends Application {
-    private Contas contas;
-    private Operacoes operacoes;	
+	private LogicaOperacoes logicaop = LogicaOperacoes.InstanceOf();
 	private TelaEntrada telaEntrada;
 	private Persistencia persistencia;
 	
     @Override
-    public void start(Stage primaryStage) {
-    	
-    	persistencia = Persistencia.InstanceOf();
-    	operacoes = new Operacoes();
-    	contas = new Contas();
-    	 	
+    public void start(Stage primaryStage) {    	
     	
     	primaryStage.setTitle("$$ Banco NOSSA GRANA $$");
 

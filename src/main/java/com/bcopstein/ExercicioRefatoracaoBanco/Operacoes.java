@@ -6,6 +6,7 @@ public class Operacoes{
 	private List<Operacao> operacoes = persistencia.loadOperacoes();
 	
 	private Operacoes(){}
+	
     public static Operacoes InstanceOf(){
     	if(instance == null) instance = new Operacoes();
     	return instance;

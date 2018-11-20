@@ -40,13 +40,12 @@ public class TelaEstatistica {
 	private Stage mainStage; 
 	private Scene cenaOperacoes;
 	private Scene cenaEstatistica;
-	private Conta conta;
-	private List<Operacao> listaOperacoes;
-	public TelaEstatistica(Stage mainStage, Scene cenaOperacoes, Conta conta,List<Operacao> listaOperacoes) {
+	private LogicaOperacoes logicaop;
+	
+	public TelaEstatistica(Stage mainStage, Scene cenaOperacoes, LogicaOperacoes logicaop) {
 		this.mainStage = mainStage;
 		this.cenaOperacoes = cenaOperacoes;
-		this.conta = conta;
-		this.listaOperacoes = listaOperacoes;
+		this.logicaop = logicaop;
 	}
 	
 	public Scene getTelaEstatistica() {

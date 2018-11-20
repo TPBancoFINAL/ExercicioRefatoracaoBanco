@@ -25,15 +25,15 @@ public class TelaOperacoes {
 	private Stage mainStage; 
 	private Scene cenaEntrada;
 	private Scene cenaOperacoes;
-	private List<Operacao> operacoes;
+	
 	private ObservableList<Operacao> operacoesConta;
 
-	private Conta conta; 
+	private LogicaOperacoes logicaop;
 
 	private TextField tfValorOperacao;
 	private TextField tfSaldo;
 
-	public TelaOperacoes(Stage mainStage, Scene telaEntrada, Conta conta, List<Operacao> operacoes) { // Tirar esse parâmetro																					// conta
+	public TelaOperacoes(Stage mainStage, Scene telaEntrada, LogicaOperacoes logicaop) { // Tirar esse parâmetro																					// conta
 		this.mainStage = mainStage;
 		this.cenaEntrada = telaEntrada;
 		this.conta = conta;
