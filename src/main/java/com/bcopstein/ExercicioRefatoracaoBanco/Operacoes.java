@@ -1,14 +1,16 @@
 package com.bcopstein.ExercicioRefatoracaoBanco;
 import java.util.List;
 public class Operacoes{
-	private Persistencia persistencia;
-	private List<Operacao> operacoes;
+	private static Operacoes instance;
+	private Persistencia persistencia = Persistencia.InstanceOf();
+	private List<Operacao> operacoes = persistencia.loadOperacoes();
 	
-	public Operacoes(){
-		persistencia = Persistencia.InstanceOf();
-		operacoes = persistencia.loadOperacoes();			
-	}
-	public List<Operacao> getOperacoes() {
+	private Operacoes(){}
+    public static Operacoes InstanceOf(){
+    	if(instance == null) instance = new Operacoes();
+    	return instance;
+    }
+	public List<Operacao> getOperacoes(){
 		return operacoes;
 	}
 	
