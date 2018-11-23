@@ -29,15 +29,13 @@ public class TelaOperacoes {
 	private ObservableList<Operacao> operacoesConta;
 
 	private LogicaOperacoes logicaop;
-
 	private TextField tfValorOperacao;
 	private TextField tfSaldo;
-
-	public TelaOperacoes(Stage mainStage, Scene telaEntrada, LogicaOperacoes logicaop) { // Tirar esse parâmetro																					// conta
+	//tirar contaAtual
+	public TelaOperacoes(Stage mainStage, Scene telaEntrada, LogicaOperacoes logicaop) { 																				// conta
 		this.mainStage = mainStage;
 		this.cenaEntrada = telaEntrada;
-		this.conta = conta;
-		this.operacoes = operacoes;
+		this.logicaop = logicaop;
 	}
 
 	public Scene getTelaOperacoes() {
@@ -47,15 +45,16 @@ public class TelaOperacoes {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        String dadosCorr = conta.getNumero()+" : "+conta.getCorrentista();
+        String dadosCorr = logicaop.getNumeroConta() + " : " + logicaop.getCorrentistaConta();
         Text scenetitle = new Text(dadosCorr);
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
+        		//ATÉ AQUI OK
         
         // implementar observer para alterar variavel na tela
-        ObservableList<String> statusConta = FXCollections.observableArrayList(conta.getStrStatus());
+        ObservableList<String> statusConta = FXCollections.observableArrayList(logicaop.getStrStatusConta());
         String categoria = ("Categoria: "+statusConta);
-        String limRetDiaria = "Limite retirada diaria: "+conta.getLimRetiradaDiaria();
+        String limRetDiaria = "Limite retirada diaria: "+ logicaop.getLimRetiradaDiariaConta();
         
         Label cat = new Label(categoria);
         grid.add(cat, 0, 1);
@@ -69,9 +68,9 @@ public class TelaOperacoes {
         // Seleciona apenas o extrato da conta atual
         operacoesConta = 
         		FXCollections.observableArrayList(
-        				operacoes
+        				logicaop.getOperacoes()
         				.stream()
-        				.filter(op -> op.getNumeroConta() == this.conta.getNumero())
+        				.filter(op -> op.getNumeroConta() == this.logicaop.getNumeroConta())
         				.collect(Collectors.toList())
         				);
         
@@ -81,7 +80,7 @@ public class TelaOperacoes {
 
         tfSaldo = new TextField();
         tfSaldo.setDisable(true);
-        tfSaldo.setText(""+conta.getSaldo());
+        tfSaldo.setText(""+logicaop.getSaldoConta());
         HBox valSaldo = new HBox(20);        
         valSaldo.setAlignment(Pos.BOTTOM_LEFT);
         valSaldo.getChildren().add(new Label("Saldo"));
@@ -113,7 +112,7 @@ public class TelaOperacoes {
         	  if (valor < 0.0) {
         		  throw new NumberFormatException("Valor invalido");
         	  }
-        	  conta.deposito(valor);
+        	  logicaop.deposito(valor);
         	  GregorianCalendar date = new GregorianCalendar();
         	  Operacao op = new Operacao(
         			  date.get(GregorianCalendar.DAY_OF_MONTH),
@@ -122,19 +121,29 @@ public class TelaOperacoes {
         			  date.get(GregorianCalendar.HOUR),
         			  date.get(GregorianCalendar.MINUTE),
         			  date.get(GregorianCalendar.SECOND),
-        			  conta.getNumero(),
-        			  conta.getStatus(),
+        			  logicaop.getNumeroConta(),
+        			  logicaop.getStatusConta(),
         			  valor,
         			  0);
-              operacoes.add(op);        	  
-        	  tfSaldo.setText(""+conta.getSaldo());
+              logicaop.addOperacao(
+        			  date.get(GregorianCalendar.DAY_OF_MONTH),
+        			  date.get(GregorianCalendar.MONTH+1),
+        			  date.get(GregorianCalendar.YEAR),
+        			  date.get(GregorianCalendar.HOUR),
+        			  date.get(GregorianCalendar.MINUTE),
+        			  date.get(GregorianCalendar.SECOND),
+        			  logicaop.getNumeroConta(),
+        			  logicaop.getStatusConta(),
+        			  valor,
+        			  0);        	  
+        	  tfSaldo.setText(""+logicaop.getSaldoConta());
         	  operacoesConta.add(op);
         	  //Alteracao nas contas
-        	  if(conta.getStatus() == 0) {cat.setText("Categoria: SILVER");}
-        	  if(conta.getStatus() == 1) {cat.setText("Categoria: GOLD");}
-        	  if(conta.getStatus() == 2) {cat.setText("Categoria: PLATINUM");}
+        	  if(logicaop.getStatusConta() == 0) {cat.setText("Categoria: SILVER");}
+        	  if(logicaop.getStatusConta() == 1) {cat.setText("Categoria: GOLD");}
+        	  if(logicaop.getStatusConta() == 2) {cat.setText("Categoria: PLATINUM");}
         	  
-        	  cat.setText("Categoria: "+conta.getStatus());
+        	  cat.setText("Categoria: "+logicaop.getStatusConta());
         	}catch(NumberFormatException ex) {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Valor inválido !!");
@@ -148,10 +157,10 @@ public class TelaOperacoes {
         btnDebito.setOnAction(e->{
         	try {
           	  double valor = Integer.parseInt(tfValorOperacao.getText());
-          	  if (valor < 0.0 || valor > conta.getSaldo()) {
+          	  if (valor < 0.0 || valor > logicaop.getSaldoConta()) {
           		  throw new NumberFormatException("Saldo insuficiente");
           	  }
-          	  conta.retirada(valor);
+          	  logicaop.retirada(valor);
         	  GregorianCalendar date = new GregorianCalendar();
         	  Operacao op = new Operacao(
         			  date.get(GregorianCalendar.DAY_OF_MONTH),
@@ -160,15 +169,25 @@ public class TelaOperacoes {
         			  date.get(GregorianCalendar.HOUR),
         			  date.get(GregorianCalendar.MINUTE),
         			  date.get(GregorianCalendar.SECOND),
-        			  conta.getNumero(),
-        			  conta.getStatus(),
+        			  logicaop.getNumeroConta(),
+        			  logicaop.getStatusConta(),
         			  valor,
         			  1);
         	  // Esta adicionando em duas listas (resolver na camada de negocio)
-              operacoes.add(op);        	  
-        	  tfSaldo.setText(""+conta.getSaldo());
+              logicaop.addOperacao(
+        			  date.get(GregorianCalendar.DAY_OF_MONTH),
+        			  date.get(GregorianCalendar.MONTH+1),
+        			  date.get(GregorianCalendar.YEAR),
+        			  date.get(GregorianCalendar.HOUR),
+        			  date.get(GregorianCalendar.MINUTE),
+        			  date.get(GregorianCalendar.SECOND),
+        			  logicaop.getNumeroConta(),
+        			  logicaop.getStatusConta(),
+        			  valor,
+        			  1);       	  
+        	  tfSaldo.setText(""+logicaop.getSaldoConta());
         	  operacoesConta.add(op);
-          	  tfSaldo.setText(""+conta.getSaldo());
+          	  tfSaldo.setText(""+logicaop.getSaldoConta());
           	}catch(NumberFormatException ex) {
   				Alert alert = new Alert(AlertType.WARNING);
   				alert.setTitle("Valor inválido !!");
@@ -183,7 +202,7 @@ public class TelaOperacoes {
         	mainStage.setScene(cenaEntrada);
         });
         btnEstatistica.setOnAction(e->{
-        	TelaEstatistica te = new TelaEstatistica(mainStage,cenaOperacoes,conta,operacoes);
+        	TelaEstatistica te = new TelaEstatistica(mainStage,cenaOperacoes,logicaop);
         	Scene scene = te.getTelaEstatistica();
         	mainStage.setScene(scene);
         	

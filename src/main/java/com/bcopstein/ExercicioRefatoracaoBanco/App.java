@@ -30,16 +30,16 @@ public class App extends Application {
     	
     	primaryStage.setTitle("$$ Banco NOSSA GRANA $$");
 
-    	telaEntrada = new TelaEntrada(primaryStage, contas.getContas(), operacoes.getOperacoes()); // << Substituir por singleton
-
+    	telaEntrada = new TelaEntrada(primaryStage, logicaop); 
         primaryStage.setScene(telaEntrada.getTelaEntrada());
         primaryStage.show();
     }
     
     @Override
     public void stop() {
-        persistencia.saveContas(contas.getContas().values());
-        persistencia.saveOperacoes(operacoes.getOperacoes());
+    	//mudar 
+        persistencia.saveContas(logicaop.getContas().values());
+        persistencia.saveOperacoes(logicaop.getOperacoes());
     }
     
     public static void main(String[] args) {

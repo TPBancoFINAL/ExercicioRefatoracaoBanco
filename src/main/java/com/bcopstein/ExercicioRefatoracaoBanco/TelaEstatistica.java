@@ -55,12 +55,12 @@ public class TelaEstatistica {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         
-        String dadosCorr = conta.getNumero()+" : "+conta.getCorrentista();
+        String dadosCorr = logicaop.getNumeroConta()+" : "+logicaop.getCorrentistaConta();
         Text scenetitle = new Text(dadosCorr);
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
         
-        String categoria = "Categoria: "+conta.getStrStatus();
+        String categoria = "Categoria: "+ logicaop.getStrStatusConta();
         
         Label cat = new Label(categoria);
         grid.add(cat, 0, 1);
@@ -68,7 +68,7 @@ public class TelaEstatistica {
         // implementar observer para alterar variavel na tela
         ChoiceBox<String> selecaoMes = new ChoiceBox(FXCollections.observableArrayList("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"));
 
-        int intEscolhaMes = listaOperacoes.get(listaOperacoes.size()-1).getMes();
+        int intEscolhaMes = logicaop.getOperacoes().get(logicaop.getOperacoes().size()-1).getMes();
         String escolhaMes = null;
         switch(intEscolhaMes) {
         	case 1:
@@ -188,7 +188,7 @@ public class TelaEstatistica {
     		break;
     }
 		double saldo = 0;
-		for(Operacao op: listaOperacoes) {
+		for(Operacao op: logicaop.getOperacoes()) {
 			if(op.getMes() == intMes) {
 				if(op.getTipoOperacao() == 0) {
 					saldo -= op.getValorOperacao();

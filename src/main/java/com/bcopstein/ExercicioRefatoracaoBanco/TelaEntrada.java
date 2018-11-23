@@ -20,6 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+@SuppressWarnings({ "unused", "restriction" })
 public class TelaEntrada {
 	private Stage mainStage; 
 	private Scene cenaEntrada; 
@@ -32,6 +33,7 @@ public class TelaEntrada {
 		mainStage = anStage;
 	}
 
+	@SuppressWarnings("restriction")
 	public Scene getTelaEntrada() {
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -71,13 +73,13 @@ public class TelaEntrada {
 		btnIn.setOnAction(e -> {
 			try {
 				Integer nroConta = Integer.parseInt(tfContaCorrente.getText());
-				// Codigo da camada de negócio
-				Conta conta = contas.get(nroConta);
-				if (conta == null) {
+				Boolean ok = logicaop.ContaAtual(nroConta);
+				if (!ok) {
 					throw new NumberFormatException("Conta invalida");
 				}
 				// Transformar o parâmetro "conta" na conta atual na camada de negócio
-				TelaOperacoes toper = new TelaOperacoes(mainStage, cenaEntrada,conta,operacoes);
+				//mudar 
+				TelaOperacoes toper = new TelaOperacoes(mainStage, cenaEntrada, logicaop);
 				Scene scene = toper.getTelaOperacoes();
 				mainStage.setScene(scene);
 			} catch (NumberFormatException ex) {

@@ -1,4 +1,5 @@
 package com.bcopstein.ExercicioRefatoracaoBanco;
+import java.util.GregorianCalendar;
 import java.util.List;
 public class Operacoes{
 	private static Operacoes instance;
@@ -14,6 +15,10 @@ public class Operacoes{
 	public List<Operacao> getOperacoes(){
 		return operacoes;
 	}
-	
+	public void add(int dia, int mes, int ano, int hora, int minuto, int segundo, int numeroConta, int statusConta,
+			double valorOperacao, int tipoOperacao) {
+		 Operacao op = new Operacao(dia,mes,ano,hora,minuto,segundo,numeroConta,statusConta,valorOperacao,tipoOperacao);
+		 operacoes.add(op);
+	}
 	
 }

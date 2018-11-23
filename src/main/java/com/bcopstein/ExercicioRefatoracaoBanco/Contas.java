@@ -13,6 +13,33 @@ public class Contas{
 	public Map<Integer,Conta> getContas(){
 		return contas;
 	}
+	public Conta getConta(Integer nro) {
+		return contas.get(nro);
+	}
+	public Integer getNumero(Conta conta) {
+		return conta.getNumero();
+	}
+	public String getCorentista(Conta conta) {
+		return conta.getCorrentista();
+	}
+	public String getStrStatus(Conta conta) {
+		return conta.getStrStatus();
+	}
+	public int getStatus(Conta conta) {
+		return conta.getStatus();
+	}
+	public double getLimRetiradaDiaria(Conta conta) {
+		return conta.getLimRetiradaDiaria();
+	}
+	public double getSaldo(Conta conta) {
+		return conta.getSaldo();
+	}
+	public void retirada(Conta conta, Double n) {
+		conta.retirada(n);
+	}
+	public void deposito(Conta conta, Double n) {
+		conta.deposito(n);
+	}
 	
 	
 }
