@@ -61,7 +61,19 @@ public class Conta {
 		default: return 0.0;
 		}
 	}
-	
+	/*@
+	 @requires(status == SILVER)
+	 @requires valor <  10000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) + valor;
+	 @also
+	 @requires(status == GOLD)
+	 @requires valor < 100000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) + valor;
+	 @also
+	 @requires(status == PLATINUM)
+	 @requires valor <  500000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) + valor;
+	 @*/
 	public void deposito(double valor) {
 		if (status == SILVER) {
 			saldo += valor;
@@ -79,13 +91,16 @@ public class Conta {
 	}
 	/*@
 	 @requires(status == SILVER)
-	 @ensures valor <  10000;
+	 @requires valor <  10000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) - valor;
 	 @also
 	 @requires(status == GOLD)
-	 @ensures valor <  100000;
+	 @requires valor < 100000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) - valor;
 	 @also
 	 @requires(status == PLATINUM)
-	 @ensures valor <  500000;
+	 @requires valor <  500000 && valor < 0;
+	 @ensures getSaldo() == \old (getSaldo()) - valor;
 	 @*/
 	public void retirada(double valor) {
 		if (saldo - valor < 0.0) {
