@@ -92,8 +92,17 @@ public class LogicaOperacoes {
 				}
 			}
 		}
-		return saldo;
- 	}
+		double total = 0;
+		for(Operacao op: getOperacoes()) {
+			total += op.getValorOperacao();
+			if(op.getMes() == intMes) {
+				return total-saldo;
+			}
+		}
+		return total-saldo;
+		};
+ }
  	
  	
-}
+ 	
+
