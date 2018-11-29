@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 public class App extends Application {
 	private LogicaOperacoes logicaop = LogicaOperacoes.InstanceOf();
 	private TelaEntrada telaEntrada;
-	private Persistencia persistencia;
 	
     @Override
     public void start(Stage primaryStage) {    	
@@ -38,8 +37,9 @@ public class App extends Application {
     @Override
     public void stop() {
     	//mudar 
-        persistencia.saveContas(logicaop.getContas().values());
-        persistencia.saveOperacoes(logicaop.getOperacoes());
+    	logicaop.getContas();
+    	logicaop.saveOperacoes();
+    	
     }
     
     public static void main(String[] args) {

@@ -1,15 +1,22 @@
 package com.bcopstein.ExercicioRefatoracaoBanco;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class LogicaOperacoes {
+	private List<Double> retiradaDiaria = new LinkedList<Double>();
+	private List<Double> depositoDiaria = new LinkedList<Double>();
+
 	private Conta contaAtual;
 	private static LogicaOperacoes instance;
 	private Operacoes op = Operacoes.InstanceOf();
 	private Contas contas = Contas.InstanceOf();
+	private Persistencia persis = Persistencia.InstanceOf();
 	
-	private LogicaOperacoes(){}
+	private LogicaOperacoes(){
+			persis.loadContas();
+			persis.loadOperacoes();
+	}
 	
 	public static LogicaOperacoes InstanceOf(){
     	if(instance == null) instance = new LogicaOperacoes();
@@ -52,9 +59,11 @@ public class LogicaOperacoes {
  	}
  	public void retirada(Double val) {
  		contas.retirada(contaAtual, val);
+ 		retiradaDiaria.add(val);
  	}
  	public void deposito(Double val) {
  		contas.deposito(contaAtual, val);
+ 		depositoDiaria.add(val);
  	}
  	
  	public void addOperacao(int dia, int mes, int ano, int hora, int minuto, int segundo, int numeroConta, int statusConta,
@@ -62,5 +71,27 @@ public class LogicaOperacoes {
  		op.add(dia,mes,ano,hora,minuto,segundo,numeroConta,statusConta,valorOperacao,tipoOperacao);
  		
  	}
+ 	public void saveContas() {
+        persis.saveContas(getContas().values());
+ 	}
+ 	public void saveOperacoes() {
+ 		persis.saveOperacoes(getOperacoes());
+ 	}
+ 	
+ 	public double saldoMedio(int intMes) {
+ 		double saldo = 0;
+		for(Operacao op: getOperacoes()) {
+			if(op.getMes() == intMes) {
+				if(op.getTipoOperacao() == 0) {
+					saldo -= op.getValorOperacao();
+					}
+				else {
+					saldo += op.getValorOperacao();
+				}
+			}
+		}
+		return saldo;
+ 	}
+ 	
  	
 }

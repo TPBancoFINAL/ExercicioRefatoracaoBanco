@@ -186,18 +186,8 @@ public class TelaEstatistica {
     		break;
     	default:
     		break;
-    }
-		double saldo = 0;
-		for(Operacao op: logicaop.getOperacoes()) {
-			if(op.getMes() == intMes) {
-				if(op.getTipoOperacao() == 0) {
-					saldo -= op.getValorOperacao();
-					}
-				else {
-					saldo += op.getValorOperacao();
-				}
-			}
-		}
-		ls.setText("Saldo Médio: " + saldo);
+    }	
+		
+		ls.setText("Saldo Médio: " + logicaop.saldoMedio(intMes));
 	}
 }

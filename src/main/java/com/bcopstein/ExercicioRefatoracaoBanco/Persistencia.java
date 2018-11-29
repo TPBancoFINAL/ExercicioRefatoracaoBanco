@@ -15,15 +15,16 @@ import java.util.Scanner;
 
 public class Persistencia {
     private static Persistencia instance;
-    private final String NomeBDContas = "BDContasBNG.txt";
-    private final String NomeBDOperacoes = "BDOperBNG.txt";
-    
     private Persistencia(){}
 
     public static Persistencia InstanceOf(){
     	if(instance == null) instance = new Persistencia();
     	return instance;
     }
+	
+    private final String NomeBDContas = "BDContasBNG.txt";
+    private final String NomeBDOperacoes = "BDOperBNG.txt";
+    
     public Map<Integer,Conta> loadContas(){
     	Map<Integer,Conta> contas = new HashMap<>();
     	
@@ -90,41 +91,41 @@ public class Persistencia {
     public List<Operacao> loadOperacoes(){
         List<Operacao> operacoes = new LinkedList<Operacao>();
         
-      	String currDir = Paths.get("").toAbsolutePath().toString();
-          String nameComplete = currDir+"\\"+NomeBDOperacoes;
-          System.out.println(nameComplete);
-          Path path2 = Paths.get(nameComplete); 
-          try (Scanner sc = new Scanner(Files.newBufferedReader(path2, Charset.defaultCharset()))){ 
-             sc.useDelimiter("[;\n]"); // separadores: ; e nova linha 
-             int dia,mes,ano;
-             int hora,minuto,segundo;
-             int numero,status,tipo;
-             double valor;
-         
-             while (sc.hasNext()){ 
-                 dia = Integer.parseInt(sc.next()); 
-                 mes = Integer.parseInt(sc.next()); 
-                 ano = Integer.parseInt(sc.next()); 
-                 hora = Integer.parseInt(sc.next()); 
-                 minuto = Integer.parseInt(sc.next()); 
-                 segundo = Integer.parseInt(sc.next()); 
-                 numero = Integer.parseInt(sc.next()); 
-                 status = Integer.parseInt(sc.next()); 
-                 valor = Double.parseDouble(sc.next());
-                 tipo = Integer.parseInt(sc.next());
-                 
-                 Operacao op = new Operacao(
-              		   dia, mes, ano,
-              		   hora, minuto, segundo,
-  	                   numero, status,
-  	                   valor, tipo);
-                 
-                 operacoes.add(op);
-             }
-          }catch (IOException x){ 
-              System.err.format("Erro de E/S: %s%n", x);
-              return null;
-          } 
-          return operacoes;    	
+    	String currDir = Paths.get("").toAbsolutePath().toString();
+        String nameComplete = currDir+"\\"+NomeBDOperacoes;
+        System.out.println(nameComplete);
+        Path path2 = Paths.get(nameComplete); 
+        try (Scanner sc = new Scanner(Files.newBufferedReader(path2, Charset.defaultCharset()))){ 
+           sc.useDelimiter("[;\n]"); // separadores: ; e nova linha 
+           int dia,mes,ano;
+           int hora,minuto,segundo;
+           int numero,status,tipo;
+           double valor;
+       
+           while (sc.hasNext()){ 
+               dia = Integer.parseInt(sc.next()); 
+               mes = Integer.parseInt(sc.next()); 
+               ano = Integer.parseInt(sc.next()); 
+               hora = Integer.parseInt(sc.next()); 
+               minuto = Integer.parseInt(sc.next()); 
+               segundo = Integer.parseInt(sc.next()); 
+               numero = Integer.parseInt(sc.next()); 
+               status = Integer.parseInt(sc.next()); 
+               valor = Double.parseDouble(sc.next());
+               tipo = Integer.parseInt(sc.next());
+               
+               Operacao op = new Operacao(
+            		   dia, mes, ano,
+            		   hora, minuto, segundo,
+	                   numero, status,
+	                   valor, tipo);
+               
+               operacoes.add(op);
+           }
+        }catch (IOException x){ 
+            System.err.format("Erro de E/S: %s%n", x);
+            return null;
+        } 
+        return operacoes;    	
     }
 }
