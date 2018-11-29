@@ -1,7 +1,10 @@
 package com.bcopstein.ExercicioRefatoracaoBanco;
 
+import java.util.List;
+
 public class Gold implements StateConta {
-	private static Gold g = null;    
+	private static Gold g = null;  
+	private Validacao v =  Validacao.InstanceOf();
 	private Gold() {
 	}	
 	public static Gold InstanceOf() {
@@ -43,6 +46,13 @@ public class Gold implements StateConta {
 	@Override
 	public double deposito(double saldo, double val) {
 		return saldo + (val*1.01);
+	}
+
+	public boolean valida(double valor,List<Double> retirada) {
+		double sum = retirada.stream()
+			    .mapToDouble(a -> a)
+			    .sum();
+		return v.valida(valor, sum ,100000.0 );
 	}
 
 }

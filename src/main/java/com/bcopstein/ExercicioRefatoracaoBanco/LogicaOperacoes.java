@@ -1,11 +1,12 @@
 package com.bcopstein.ExercicioRefatoracaoBanco;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class LogicaOperacoes {
-	private List<Double> retiradaDiaria = new LinkedList<Double>();
-	private List<Double> depositoDiaria = new LinkedList<Double>();
+
+	private List<Double> retiradaDiaria = new ArrayList<>();
+	private List<Double> depositoDiaria = new ArrayList<>();
 
 	private Conta contaAtual;
 	private static LogicaOperacoes instance;
@@ -58,6 +59,7 @@ public class LogicaOperacoes {
  		return contas.getSaldo(contaAtual);
  	}
  	public void retirada(Double val) {
+ 		contaAtual.st().valida(val,retiradaDiaria);
  		contas.retirada(contaAtual, val);
  		retiradaDiaria.add(val);
  	}

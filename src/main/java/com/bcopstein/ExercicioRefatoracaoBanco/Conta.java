@@ -1,7 +1,7 @@
  package com.bcopstein.ExercicioRefatoracaoBanco;
 public class Conta {
 	private Factory f = Factory.InstanceOf();
-
+	
 	public final int SILVER = 0;
 	public final int GOLD = 1;
 	public final int PLATINUM = 2;
@@ -11,6 +11,9 @@ public class Conta {
 	private double saldo;
 	private StateConta status;
 
+	public StateConta st(){
+		return status;
+	}
 	
 	public Conta(int umNumero, String umNome) {
 		numero = umNumero;
@@ -85,8 +88,7 @@ public class Conta {
 		double saldoAnterior = saldo;
 		saldo = status.retirada(saldo, valor);
 		status = status.upgrade(saldoAnterior, saldo);
-		
-	}
+			}
 
 	@Override
 	public String toString() {
