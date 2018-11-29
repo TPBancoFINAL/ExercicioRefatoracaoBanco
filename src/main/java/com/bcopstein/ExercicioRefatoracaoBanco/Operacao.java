@@ -2,7 +2,19 @@ package com.bcopstein.ExercicioRefatoracaoBanco;
 public class Operacao {
 	public final int CREDITO = 0;
 	public final int DEBITO = 1;
-    
+    /*@
+	@instance invariant getDia() > 0 && getDia() <= 31;
+	@instance invariant getMes() > 0 && getMes() <= 12;
+	@instance invariant getAno() > 0;
+	@instance invariant geHora() > 0 && getHora() <= 24;
+	@instance invariant getMinuto() > 0 && getMinuto() <= 60;
+	@instance invariant getSegundo() > 0 && getSegundo() <= 60;
+	@instance invariant getNumeroConta() >= 0;
+	@instance invariant getStatusConta() <= 0 && getStatusConta <=2;
+	@instance invariant getTipoOperacao() == 0 || getTipoOperacao() == 1;
+
+	@*/
+	
 	private int dia;
     private int mes;
     private int ano;
@@ -13,6 +25,8 @@ public class Operacao {
     private int statusConta;
     private double valorOperacao;
     private int tipoOperacao;
+    
+    
     
 	public Operacao(int dia, int mes, int ano, int hora, int minuto, int segundo, int numeroConta, int statusConta,
 			double valorOperacao, int tipoOperacao) {
